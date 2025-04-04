@@ -5,10 +5,10 @@ def parse_documents(file_path):
     with open(file_path, "r", encoding="utf-8") as file:
         xml_content = file.read()
 
-    # Add a root element dynamically if missing
+    # Adding a root element if missing
     xml_content = f"<root>{xml_content}</root>"
 
-    # Parse the modified XML content
+    # Parsing the modified XML content
     root = ET.fromstring(xml_content)
     documents = []
 
@@ -19,10 +19,10 @@ def parse_documents(file_path):
         bib = doc.find('bib').text if doc.find('bib') is not None else "No Bib Info"
         text = doc.find('text').text if doc.find('text') is not None else ""
 
-        # Handle None before slicing
+        # Handling None before slicing
         text_preview = text[:100] + "..." if text else "No Content"
 
-        # Print some details for debugging
+        # Print some details
         print(f"Document ID: {docno}")
         print(f"Title: {title}")
         print(f"Author: {author}")

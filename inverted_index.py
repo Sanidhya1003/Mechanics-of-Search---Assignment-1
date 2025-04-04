@@ -11,7 +11,7 @@ import re
 from collections import defaultdict
 
 def tokenize(text):
-    """Tokenizes text: Converts to lowercase and removes punctuation."""
+    """Tokenization: lowercase and removal of punctuation."""
     text = text.lower()  # Convert to lowercase
     text = re.sub(r'[^a-z0-9\s]', '', text)  # Remove punctuation
     return text.split()  # Split into words
@@ -43,7 +43,7 @@ with open("D:\Practicum\Mechanics of Search\parsed_documents.json", "r", encodin
 inverted_index = build_inverted_index(documents)
 
 
-# Print a small sample to check correctness
+# Print sample
 print("Sample Inverted Index:")
 sample_words = list(inverted_index.keys())[:10]  # Get first 10 words
 for word in sample_words:

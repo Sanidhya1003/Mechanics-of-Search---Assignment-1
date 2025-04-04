@@ -6,7 +6,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-'''# Download stopwords and wordnet if not already downloaded
+'''# Download stopwords and wordnet
 nltk.download('stopwords')
 nltk.download('wordnet')'''
 
@@ -93,17 +93,15 @@ with open(output_file, "w") as f:
         for rank, (doc_id, score) in enumerate(results, start=1):
             f.write(f"{query_id} 0 {doc_id} {rank} {score:.4f} Unigram_Model\n")
 
-print("Language Model Query Ranking Computation Complete!")
 
-print("Language Model Query Ranking Computation Complete!\n")
 
-# Display results for the first few queries (e.g., first 3 queries)
+# Print sample for some queries
 num_queries_to_display = 3
 for i, (query_id, results) in enumerate(query_results_lm.items()):
     if i >= num_queries_to_display:
         break
     print(f"Query ID: {query_id}")
-    for rank, (doc_id, score) in enumerate(results[:100], start=1):  # Show top 10 documents per query
+    for rank, (doc_id, score) in enumerate(results[:100], start=1):  # Show top 100 documents per query
         print(f"  Rank {rank}: Doc {doc_id} | Score: {score:.4f}")
     print("\n" + "-" * 50 + "\n")
 

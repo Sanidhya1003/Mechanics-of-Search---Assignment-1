@@ -12,7 +12,7 @@ def parse_queries(file_path):
         num_element.text = num  # Update 'num' element in the XML
         title = top.find("title").text.strip()
 
-        # Print some details for debugging
+        # Print some details
         print(f"Num: {num}")
         print(f"Title: {title}")
 
@@ -22,7 +22,7 @@ def parse_queries(file_path):
 
     return queries
 
-# File path (Change if needed)
+# File path
 queries_file = "D:\Practicum\Mechanics of Search\Dataset\cranfield-trec-dataset-main\cran.qry.xml"
 
 # Parse Queries

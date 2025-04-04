@@ -7,7 +7,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-# Download stopwords and wordnet if not already downloaded
+# Download stopwords and wordnet
 nltk.download('stopwords')
 nltk.download('wordnet')
 
@@ -43,7 +43,7 @@ def compute_tf(documents):
         doc_id = str(doc.get("docno", "UNKNOWN"))  # Ensure ID is always a string
         text = doc.get("text", "")  # Ensure text is a string
 
-        if text is None:  # Explicitly handle NoneType case
+        if text is None:  # Handle NoneType case
             print(f"Warning: Document ID {doc_id} has None as text! Replacing with empty string.")
             text = ""
 
@@ -73,7 +73,7 @@ def compute_tf(documents):
 with open("D:\Practicum\Mechanics of Search\parsed_documents.json", "r") as f:
     documents = json.load(f)
 
-'''# Debugging: Check first few documents to verify structure
+'''# Check first few documents to verify structure
 print("Sample documents (first 3) for verification:")
 for i in range(min(3, len(documents))):  # Prevents index error if less than 3 docs
     print(documents[i])'''
@@ -82,7 +82,7 @@ for i in range(min(3, len(documents))):  # Prevents index error if less than 3 d
 tf_index = compute_tf(documents)
 
 # Print sample TF values for the first few documents
-sample_docs = list(tf_index.keys())[:5]  # Get first 5 document IDs
+sample_docs = list(tf_index.keys())[:5]
 for doc_id in sample_docs:
     print(f"Document ID: {doc_id}")
     print(f"Sample TF values: {dict(list(tf_index[doc_id].items())[:10])}")  # Print first 10 terms
@@ -123,12 +123,12 @@ def compute_idf(documents):
 
 idf_index = compute_idf(documents)
 
-# Print sample IDF values for verification
-sample_terms = list(idf_index.keys())[:5]  # Print first 10 terms as a sample
+# Print sample IDF values
+sample_terms = list(idf_index.keys())[:5]
 for term in sample_terms:
     print(f"Term: {term}, IDF: {idf_index[term]}")
 
-print("IDF computation complete! Now you can verify the output.")
+print("IDF computation complete!")
 
 def compute_tf_idf(tf_index, idf_index):
     """Compute TF-IDF scores for each term in each document."""
@@ -143,7 +143,7 @@ def compute_tf_idf(tf_index, idf_index):
 tf_idf_index = compute_tf_idf(tf_index, idf_index)
 
 # Print sample TF-IDF values for verification
-sample_docs = list(tf_idf_index.keys())[:5]  # Get first 5 document IDs
+sample_docs = list(tf_idf_index.keys())[:5]
 for doc_id in sample_docs:
     print(f"Document ID: {doc_id}")
     print(f"Sample TF-IDF values: {dict(list(tf_idf_index[doc_id].items())[:10])}")  # Print first 10 terms
@@ -219,13 +219,13 @@ for query_obj in queries:
     for doc_id, doc_vector in tf_idf_index.items():
         similarities[doc_id] = cosine_similarity(query_vector, doc_vector)
 
-    # Sort documents by similarity score (higher is better)
+    # Sort documents by similarity score
     ranked_docs = sorted(similarities.items(), key=lambda x: x[1], reverse=True)
 
-    query_results[query_id] = ranked_docs[:100]  # Top 10 results for each query
+    query_results[query_id] = ranked_docs[:100]  # Top 100 results for each query
 
-# Print sample results for verification
-for query_id, results in list(query_results.items())[:3]:  # First 3 queries
+# Print sample results
+for query_id, results in list(query_results.items())[:3]:
     print(f"Query ID: {query_id}")
     for doc_id, score in results:
         print(f"  Doc {doc_id}: {score:.4f}")
